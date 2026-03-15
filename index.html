@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>КП «ЦЗО» — Централізована закупівельна організація Одеської обласної ради</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ═══════════════════════════════════════
+       DESIGN SYSTEM
+    ═══════════════════════════════════════ */
+    :root {
+      --navy:       #012B5A;
+      --navy-mid:   #023264;
+      --navy-light: #1a4a85;
+      --gold:       #C8A84B;
+      --gold-light: #E2C97E;
+      --cream:      #F5F2EC;
+      --white:      #ffffff;
+      --text:       #1a1a2e;
+      --text-mid:   #3a4a6b;
+      --muted:      #6b7280;
+      --border:     rgba(1,43,90,0.12);
+      --shadow:     0 4px 16px rgba(1,43,90,0.10);
+      --shadow-lg:  0 16px 48px rgba(1,43,90,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    a { color: inherit; text-decoration: none; transition: color .2s; }
+    img { max-width: 100%; border-radius: 4px; }
+
+    .container {
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      box-shadow: 0 2px 20px rgba(0,0,0,.3);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .header-logo {
+      width: 50px; height: 50px;
+      border-radius: 8px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      line-height: 1.45;
+    }
+
+    .header-title small {
+      display: block;
+      font-size: 9px;
+      font-weight: 400;
+      color: rgba(255,255,255,.45);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* ── NAV ── */
+    .header-nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--navy-mid);
+      padding: 0;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu > li { position: relative; }
+
+    .nav-menu > li > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 13px 14px;
+      color: rgba(255,255,255,.85);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+    }
+
+    .nav-menu > li > a:hover,
+    .nav-menu > li.active > a {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+
+    .nav-caret { font-size: 9px; opacity: .55; }
+
+    .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%; left: 0;
+      background: var(--navy);
+      border-top: 2px solid var(--gold);
+      border-radius: 0 0 8px 8px;
+      min-width: 230px;
+      list-style: none;
+      box-shadow: var(--shadow-lg);
+      z-index: 300;
+    }
+
+    .nav-menu > li:hover .sub-menu { display: block; }
+
+    .sub-menu li a {
+      display: block;
+      padding: 11px 20px;
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: all .2s;
+    }
+
+    .sub-menu li a:hover {
+      color: var(--gold-light);
+      background: rgba(255,255,255,.04);
+      padding-left: 26px;
+    }
+
+    /* search */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin: 8px 0;
+    }
+
+    .nav-search input {
+      background: none; border: none; outline: none;
+      padding: 7px 12px;
+      color: white; font-size: 12px;
+      font-family: 'Montserrat', sans-serif;
+      width: 160px;
+    }
+
+    .nav-search input::placeholder { color: rgba(255,255,255,.38); }
+
+    .nav-search button {
+      background: none; border: none;
+      padding: 7px 11px;
+      color: rgba(255,255,255,.55);
+      cursor: pointer; font-size: 12px;
+      transition: color .2s;
+    }
+
+    .nav-search button:hover { color: var(--gold-light); }
+
+    /* ── BURGER ── */
+    .burger {
+      display: none;
+      background: none;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin: 8px 0;
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 8px 0 16px;
+    }
+
+    .mobile-nav.open { display: block; }
+
+    .mobile-nav ul { list-style: none; }
+
+    .mobile-nav ul li a {
+      display: block;
+      padding: 10px 24px;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .mobile-nav ul li ul li a {
+      padding-left: 40px;
+      font-weight: 400;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.65);
+    }
+
+    /* ═══════════════════════════════════════
+       PAGE SYSTEM (SPA)
+    ═══════════════════════════════════════ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ═══════════════════════════════════════
+       PAGE HERO BANNER
+    ═══════════════════════════════════════ */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0a3f7a 100%);
+      padding: 56px 0 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 85% 50%, rgba(200,168,75,.07) 0%, transparent 65%);
+    }
+
+    .page-hero-inner { position: relative; z-index: 1; }
+
+    .page-hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200,168,75,.15);
+      border: 1px solid rgba(200,168,75,.3);
+      color: var(--gold-light);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .page-hero .badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .page-hero h1 {
+      font-family: 'PT Serif', serif;
+      font-size: clamp(22px, 4vw, 38px);
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      max-width: 700px;
+    }
+
+    .page-hero p {
+      color: rgba(255,255,255,.68);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 620px;
+      margin-top: 16px;
+    }
+
+    .hero-divider {
+      width: 44px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: 24px 0 0;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTENT SECTIONS
+    ═══════════════════════════════════════ */
+    .section { padding: 60px 0; }
+    .section-white { background: white; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 22px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-family: 'PT Serif', serif;
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .section-lead {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    .section-head { margin-bottom: 44px; }
+
+    /* ── PROSE TEXT ── */
+    .prose p {
+      font-size: 14.5px;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+
+    .prose a {
+      color: var(--navy);
+      font-weight: 600;
+      border-bottom: 1px solid var(--gold);
+      transition: border-color .2s;
+    }
+
+    .prose a:hover { border-color: var(--navy); }
+
+    .prose strong { color: var(--navy); font-weight: 700; }
+
+    .prose h3 {
+      font-family: 'PT Serif', serif;
+      font-size: 20px;
+      color: var(--navy);
+      margin: 32px 0 12px;
+    }
+
+    .prose h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 24px 0 8px;
+    }
+
+    .prose ul, .prose ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .prose li {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+
+    /* ── CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      box-shadow: var(--shadow);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-family: 'PT Serif', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 20px; }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: white;
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-body h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .step-body p {
+      font-size: 13.5px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    /* ── BTN ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--navy-light);
+      transform: translateX(2px);
+      color: white;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-gold:hover { background: var(--gold-light); }
+
+    .btn i { font-size: 11px; transition: transform .2s; }
+    .btn:hover i { transform: translateX(3px); }
+
+    /* ── TWO COL LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .two-col-wide {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .info-box strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .info-box p, .info-box span {
+      font-size: 13.5px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ITEMS ── */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .contact-icon {
+      width: 42px; height: 42px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .contact-detail strong {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .contact-detail span, .contact-detail a {
+      font-size: 14px;
+      color: var(--text-mid);
+    }
+
+    .contact-detail a:hover { color: var(--navy); }
+
+    /* ── FORM ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid .full { grid-column: 1/-1; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(1,43,90,.08);
+    }
+
+    .form-group textarea { min-height: 120px; }
+
+    .form-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 12px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── PRICE TABLE ── */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .price-table th {
+      background: var(--navy);
+      color: white;
+      padding: 14px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-align: left;
+    }
+
+    .price-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--text-mid);
+      background: white;
+    }
+
+    .price-table tr:hover td { background: rgba(1,43,90,.02); }
+
+    .price-highlight {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 15px;
+    }
+
+    /* ── DOCUMENTS LIST ── */
+    .doc-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      transition: all .2s;
+      box-shadow: var(--shadow);
+    }
+
+    .doc-item:hover {
+      border-color: rgba(1,43,90,.25);
+      box-shadow: var(--shadow-lg);
+      transform: translateX(4px);
+    }
+
+    .doc-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .doc-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.4;
+    }
+
+    .doc-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── ACCORDION (Q&A) ── */
+    .accordion { display: flex; flex-direction: column; gap: 10px; }
+
+    .acc-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .acc-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      transition: background .2s;
+    }
+
+    .acc-trigger:hover { background: rgba(1,43,90,.02); }
+
+    .acc-trigger .acc-icon {
+      font-size: 13px;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform .3s;
+    }
+
+    .acc-item.open .acc-icon { transform: rotate(180deg); }
+
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .acc-item.open .acc-body { max-height: 600px; }
+
+    .acc-body-inner {
+      padding: 0 22px 20px;
+      font-size: 13.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    .acc-body-inner ul {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+
+    .acc-body-inner li { margin-bottom: 5px; }
+
+    /* ── MAP EMBED ── */
+    .map-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border);
+    }
+
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 320px;
+      border: none;
+    }
+
+    /* ── VACANCY CARD ── */
+    .vacancy {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .vacancy-head {
+      background: var(--navy);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .vacancy-head-icon {
+      width: 52px; height: 52px;
+      background: rgba(200,168,75,.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .vacancy-head h3 {
+      font-family: 'PT Serif', serif;
+      font-size: 20px;
+      color: white;
+    }
+
+    .vacancy-salary {
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+      margin-top: 4px;
+    }
+
+    .vacancy-salary strong { color: var(--gold-light); }
+
+    .vacancy-body { padding: 32px; }
+
+    .vacancy-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .vacancy-block h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .vacancy-block ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .vacancy-block ul li {
+      font-size: 13px;
+      color: var(--text-mid);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .vacancy-block ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .vacancy-duties h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .vacancy-duties ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .vacancy-duties ul li {
+      font-size: 13px;
+      color: var(--text-mid);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .vacancy-duties ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ── STRUCTURE ── */
+    .org-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .org-avatar {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .org-info h3 {
+      font-family: 'PT Serif', serif;
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .org-info .role {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.75);
+      padding: 52px 0 28px;
+      position: relative;
+    }
+
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      color: white;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li { margin-bottom: 9px; }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: rgba(255,255,255,.62);
+      transition: color .2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--gold-light); }
+
+    .footer-contact { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 13px; }
+
+    .footer-contact i { color: var(--gold); font-size: 13px; margin-top: 3px; flex-shrink: 0; }
+
+    .footer-contact span, .footer-contact a {
+      font-size: 13px;
+      color: rgba(255,255,255,.68);
+      line-height: 1.5;
+    }
+
+    .footer-contact a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p { font-size: 11.5px; color: rgba(255,255,255,.35); }
+
+    /* ── FADE UP ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .two-col, .two-col-wide { grid-template-columns: 1fr; gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .vacancy-cols { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-menu { display: none; }
+      .nav-search { display: none; }
+      .burger { display: flex; }
+      .header-nav-wrap { justify-content: flex-end; padding: 0 0; }
+      .header-brand { padding: 10px 0; }
+      .header-title { font-size: 10px; }
+      .header-logo { width: 40px; height: 40px; }
+
+      .cards-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .section { padding: 40px 0; }
+      .page-hero { padding: 40px 0 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .page-hero h1 { font-size: 20px; }
+    }
+
+
+    .doc-item { align-items: center; flex-wrap: wrap; gap: 12px; }
+    .doc-btns { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+    .doc-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 6px; border: none;
+      font-size: 12px; font-weight: 600; font-family: 'Montserrat', sans-serif;
+      cursor: pointer; transition: all .2s; white-space: nowrap; text-decoration: none;
+    }
+    .doc-btn-view { background: rgba(1,43,90,.08); color: var(--navy); border: 1.5px solid var(--border); }
+    .doc-btn-view:hover { background: var(--navy); color: white; border-color: var(--navy); }
+    .doc-btn-dl { background: var(--navy); color: white; }
+    .doc-btn-dl:hover { background: var(--navy-light); color: white; }
+    @media (max-width: 600px) {
+      .doc-btns { width: 100%; }
+      .doc-btn { flex: 1; justify-content: center; }
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
+    ::selection { background: var(--navy); color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     HEADER
+═══════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-brand">
+      <img src="https://czo.od.gov.ua/wp-content/uploads/2021/10/cropped-123.png"
+           alt="КП ЦЗО" class="header-logo">
+      <div class="header-title">
+        <small>Одеська обласна рада</small>
+        Комунальне підприємство «Централізована закупівельна організація»
+      </div>
+    </div>
+  </div>
+
+  <div class="header-nav-wrap">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%">
+      <ul class="nav-menu" id="mainNav">
+        <li class="active"><a href="#" onclick="showPage('home',this)">Головна</a></li>
+        <li>
+          <a href="#">Про ЦЗО <span class="nav-caret">▾</span></a>
+          <ul class="sub-menu">
+            <li><a href="#" onclick="showPage('structure',this)">Структура та керівництво</a></li>
+            <li><a href="#" onclick="showPage('vacancy',this)">Вакансії</a></li>
+            <li><a href="#" onclick="showPage('corruption',this)">Повідом про корупцію</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Замовнику <span class="nav-caret">▾</span></a>
+          <ul class="sub-menu">
+            <li><a href="#" onclick="showPage('metodyka',this)">Визначення очікуваної вартості</a></li>
+            <li><a href="#" onclick="showPage('transfer',this)">Передати закупівлі ЦЗО</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="showPage('services',this)">Послуги</a></li>
+        <li>
+          <a href="#">Документи <span class="nav-caret">▾</span></a>
+          <ul class="sub-menu">
+            <li><a href="#" onclick="showPage('documents',this)">Звіти та документи</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="showPage('contacts',this)">Контакти</a></li>
+      </ul>
+
+      <div style="display:flex;align-items:center;gap:8px">
+        <form class="nav-search">
+          <input type="search" placeholder="Шукати...">
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <button class="burger" id="burgerBtn" onclick="toggleMobile()">
+          <i class="fas fa-bars" id="burgerIcon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="#" onclick="showPage('home',this);toggleMobile()">Головна</a></li>
+      <li><a href="#" onclick="showPage('structure',this);toggleMobile()">— Структура та керівництво</a></li>
+      <li><a href="#" onclick="showPage('vacancy',this);toggleMobile()">— Вакансії</a></li>
+      <li><a href="#" onclick="showPage('corruption',this);toggleMobile()">— Повідом про корупцію</a></li>
+      <li><a href="#" onclick="showPage('metodyka',this);toggleMobile()">— Визначення очікуваної вартості</a></li>
+      <li><a href="#" onclick="showPage('transfer',this);toggleMobile()">— Передати закупівлі ЦЗО</a></li>
+      <li><a href="#" onclick="showPage('services',this);toggleMobile()">Послуги</a></li>
+      <li><a href="#" onclick="showPage('documents',this);toggleMobile()">Документи</a></li>
+      <li><a href="#" onclick="showPage('contacts',this);toggleMobile()">Контакти</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ═══════════════════════════════════
+     PAGES
+═══════════════════════════════════ -->
+
+<!-- ── ГОЛОВНА ── -->
+<div class="page active" id="page-home">
+
+  <section style="background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,#0a3f7a 100%);padding:72px 0 80px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 70% at 82% 50%,rgba(200,168,75,.08) 0%,transparent 65%)"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <div class="badge" style="display:inline-flex;align-items:center;gap:7px;background:rgba(200,168,75,.15);border:1px solid rgba(200,168,75,.3);color:var(--gold-light);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 13px;border-radius:100px;margin-bottom:24px">
+        <span style="width:5px;height:5px;border-radius:50%;background:var(--gold);display:inline-block"></span>
+        Офіційний сайт
+      </div>
+      <h1 style="font-family:'PT Serif',serif;font-size:clamp(22px,4vw,40px);font-weight:700;color:white;line-height:1.2;max-width:740px;margin-bottom:28px">
+        Комунальне підприємство<br>
+        <em style="font-style:italic;color:var(--gold-light)">«Централізована закупівельна організація»</em><br>
+        Одеської обласної ради
+      </h1>
+      <div style="width:44px;height:2px;background:var(--gold);border-radius:2px;margin-bottom:24px"></div>
+      <p style="color:rgba(255,255,255,.7);font-size:14.5px;line-height:1.85;max-width:680px;margin-bottom:14px">
+        Рішенням <a href="https://oblrada.odessa.gov.ua/" target="_blank" style="color:var(--gold-light);border-bottom:1px solid rgba(200,168,75,.4)">Одеської обласної ради</a> від 18 червня 2021 року № 230–VIII підприємство визначено централізованою закупівельною організацією, яка проводить тендери та закупівлі за рамковими угодами товарів і послуг в інтересах замовників згідно із Законом України «Про публічні закупівлі».
+      </p>
+      <p style="color:rgba(255,255,255,.7);font-size:14.5px;line-height:1.85;max-width:680px;margin-bottom:32px">
+        Основними завданнями є стандартизація, професіоналізація, правова визначеність, запровадження гнучких методів закупівлі — укладення рамкових угод та здійснення електронних закупівель.
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#" onclick="showPage('services')" class="btn btn-gold">Наші послуги <i class="fas fa-arrow-right"></i></a>
+        <a href="#" onclick="showPage('contacts')" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.25)">Зв'язатись <i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Наші послуги</div>
+        <h2 class="section-title">Послуги КП «ЦЗО»</h2>
+        <p class="section-lead">КП «ЦЗО» проводить процедури публічних закупівель в інтересах Замовників на комерційній основі.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fas fa-gavel"></i></div>
+          <h3>Проведення тендерних процедур</h3>
+          <p>Всі етапи тендерів в інтересах замовників, розроблення технічних специфікацій для товарів і послуг.</p>
+          <br><a href="#" onclick="showPage('transfer')" class="btn btn-primary">Детальніше <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+          <h3>Консультативна допомога</h3>
+          <p>Консультаційна, навчальна, інформаційна та правова допомога з організації та проведення тендерів.</p>
+          <br><a href="#" onclick="showPage('services')" class="btn btn-primary">Детальніше <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Аналіз ринку</h3>
+          <p>Постійний аналіз ринку, визначення очікуваної вартості предмета закупівель для ефективних закупівель.</p>
+          <br><a href="#" onclick="showPage('metodyka')" class="btn btn-primary">Детальніше <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="home-contact">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Зв'язок</div>
+        <h2 class="section-title">Зворотній зв'язок</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="contact-item fade-up">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-detail">
+              <strong>Адреса</strong>
+              <span>65012, Україна, Одеська область, м. Одеса, Приморський район, вул. Канатна, 83</span>
+            </div>
+          </div>
+          <div class="contact-item fade-up">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-detail">
+              <strong>Телефон</strong>
+              <a href="tel:+380965447392">+380 96 544 73 92</a>
+            </div>
+          </div>
+          <div class="contact-item fade-up">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-detail">
+              <strong>Email</strong>
+              <span>czo.odessa@gmail.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <form onsubmit="return false">
+            <div class="form-grid">
+              <div class="form-group"><label>Ваше ім'я</label><input type="text" placeholder="Іваненко Іван"></div>
+              <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+              <div class="form-group full"><label>Тема</label><input type="text" placeholder="Тема повідомлення"></div>
+              <div class="form-group full"><label>Повідомлення (необов'язково)</label><textarea placeholder="Ваше повідомлення..."></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:14px;width:100%;justify-content:center">Відправити <i class="fas fa-paper-plane"></i></button>
+            <p class="form-note">* Форма не є запитом на інформацію відповідно до Закону України «Про доступ до публічної інформації».</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── ПОСЛУГИ ── -->
+<div class="page" id="page-services">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Послуги</div>
+      <h1>Послуги КП «ЦЗО»</h1>
+      <div class="hero-divider"></div>
+      <p>Централізована закупівельна організація надає повний спектр послуг з публічних закупівель для замовників Одеської обласної ради.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="two-col-wide">
+        <div class="prose fade-up">
+          <h3>Хто може скористатись послугами?</h3>
+          <p>Відповідно до Закону України «Про публічні закупівлі» замовниками є:</p>
+          <ul>
+            <li>Юридичні особи, які є розпорядниками, одержувачами коштів обласного бюджету</li>
+            <li>Юридичні особи, у вищому органі яких обласна рада володіє більшістю голосів</li>
+            <li>Юридичні особи, у статутному капіталі яких частка акцій, що перебуває у спільній власності територіальних громад, перевищує 50%</li>
+          </ul>
+          <p>Централізована закупівельна організація також здійснює організацію та проведення тендерів в інтересах юридичних осіб публічного та приватного права незалежно від форми власності.</p>
+
+          <h3>Що ми надаємо</h3>
+          <ul>
+            <li>Проведення всіх етапів тендерів в інтересах замовників</li>
+            <li>Розроблення технічних специфікацій для товарів і послуг</li>
+            <li>Розроблення та затвердження методики аналізу ринку</li>
+            <li>Визначення очікуваної вартості предмета закупівель</li>
+            <li>Постійний аналіз ринку з урахуванням потреб замовників</li>
+            <li>Консультаційна, навчальна, інформаційна та правова допомога</li>
+            <li>Уніфікація технічних вимог і специфікацій, створення стандартних шаблонів</li>
+          </ul>
+          <p>КП «ЦЗО» забезпечує замовникам <strong>економію часу і грошей</strong> під час закупівлі товарів та послуг.</p>
+          <p>Додаткові питання: <a href="tel:+380965447392">+380 96 544 73 92</a></p>
+        </div>
+
+        <div class="fade-up">
+          <div class="section-label">Вартість</div>
+          <h3 class="section-title" style="font-size:22px">Розмір винагороди ЦЗО</h3>
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:24px">При необов'язковому проведенні тендерів розмір винагороди не перевищує:</p>
+
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>Очікувана вартість закупівлі</th>
+                <th>Відсоток від договору</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>До 10 млн грн</td>
+                <td><span class="price-highlight">3%</span></td>
+              </tr>
+              <tr>
+                <td>До 50 млн грн</td>
+                <td><span class="price-highlight">2%</span></td>
+              </tr>
+              <tr>
+                <td>До 100 млн грн</td>
+                <td><span class="price-highlight">1%</span></td>
+              </tr>
+              <tr>
+                <td>Понад 100 млн грн</td>
+                <td><span class="price-highlight">0,5%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── СТРУКТУРА ── -->
+<div class="page" id="page-structure">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Про ЦЗО</div>
+      <h1>Структура та керівництво</h1>
+      <div class="hero-divider"></div>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="section-head fade-up">
+        <div class="section-label">Правовий статус</div>
+        <h2 class="section-title">Про підприємство</h2>
+        <div class="prose">
+          <p>Комунальне підприємство «Централізована закупівельна організація» є <strong>юридичною особою публічного права</strong>, що здійснює діяльність у сфері організації та проведення тендерів та закупівель товарів, послуг та закупівель за рамковими угодами в інтересах замовників.</p>
+          <p>Діяльність підприємства контролюється <strong>Одеською обласною державною адміністрацією</strong> в особі галузевого управління — Департаменту економічної політики та стратегічного планування.</p>
+        </div>
+      </div>
+
+      <div class="section-label fade-up">Керівництво</div>
+      <div class="org-card fade-up" style="max-width:540px">
+        <div class="org-avatar"><i class="fas fa-user-tie"></i></div>
+        <div class="org-info">
+          <div class="role">Керівник КП «ЦЗО»</div>
+          <h3>ДУШЕЙКО Юрій Михайлович</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── ВАКАНСІЇ ── -->
+<div class="page" id="page-vacancy">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Кар'єра</div>
+      <h1>Вакансії</h1>
+      <div class="hero-divider"></div>
+      <p>Приєднуйтесь до нашої команди професіоналів у сфері публічних закупівель.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="vacancy fade-up">
+        <div class="vacancy-head">
+          <div class="vacancy-head-icon"><i class="fas fa-briefcase"></i></div>
+          <div>
+            <h3>Фахівець із публічних закупівель</h3>
+            <div class="vacancy-salary">Заробітна плата: <strong>12 000 грн</strong> (з можливістю преміювання)</div>
+          </div>
+        </div>
+        <div class="vacancy-body">
+          <div class="vacancy-cols">
+            <div class="vacancy-block">
+              <h4>Вимоги</h4>
+              <ul>
+                <li>Вища освіта (обов'язково)</li>
+                <li>Досвід роботи у сфері публічних закупівель</li>
+                <li>Знання діловодства та офісної техніки</li>
+              </ul>
+            </div>
+            <div class="vacancy-block">
+              <h4>Умови роботи</h4>
+              <ul>
+                <li>Повний робочий день</li>
+                <li>Оплачувана відпустка — 31 календарний день</li>
+                <li>Оплачуваний лікарняний</li>
+                <li>Пн–Чт: 09:00–18:00, Пт: 09:00–16:45</li>
+                <li>Обідня перерва: 13:00–13:45</li>
+                <li>Дружній колектив, постійне навчання</li>
+              </ul>
+            </div>
+          </div>
+          <div class="vacancy-duties">
+            <h4>Обов'язки</h4>
+            <ul>
+              <li>Планування закупівель та формування річного плану в електронній системі</li>
+              <li>Розроблення тендерної документації (предмет, очікувана вартість, технічна специфікація)</li>
+              <li>Взаємодія із замовниками в установленому регламентом порядку</li>
+              <li>Підготовка протоколів щодо проведення процедур закупівель</li>
+              <li>Оприлюднення інформації про закупівлі на веб-порталі Уповноваженого органу</li>
+              <li>Розгляд тендерних пропозицій на відповідність вимогам та Закону</li>
+              <li>Аналіз проведених закупівель, формування звітів</li>
+              <li>Контроль за своєчасним закриттям виконаних договорів</li>
+              <li>Систематичний моніторинг змін до чинного законодавства України</li>
+            </ul>
+          </div>
+          <div style="margin-top:28px">
+            <a href="#" onclick="showPage('contacts')" class="btn btn-primary">Надіслати резюме <i class="fas fa-paper-plane"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── ПОВІДОМ ПРО КОРУПЦІЮ ── -->
+<div class="page" id="page-corruption">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Антикорупція</div>
+      <h1>Повідом про корупцію</h1>
+      <div class="hero-divider"></div>
+      <p>Повідомити про можливі факти порушення антикорупційного законодавства можна одним із зручних способів.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="two-col">
+        <div class="fade-up">
+          <div class="section-label">Як повідомити</div>
+          <h2 class="section-title" style="font-size:22px">Способи зв'язку</h2>
+
+          <div class="contact-item" style="margin-top:24px">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-detail">
+              <strong>Електронна адреса</strong>
+              <span>czo.odessa@gmail.com</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-mail-bulk"></i></div>
+            <div class="contact-detail">
+              <strong>Письмово (з позначкою «Про корупцію»)</strong>
+              <span>65008, м. Одеса, пл. Бориса Дерев'янка, 1</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+            <div class="contact-detail">
+              <strong>Єдиний портал повідомлень викривачів</strong>
+              <a href="https://whistleblower.gov.ua/" target="_blank" style="color:var(--navy)">whistleblower.gov.ua</a>
+            </div>
+          </div>
+
+          <div class="info-box" style="margin-top:16px">
+            <strong>Анонімність</strong>
+            <p>Повідомлення може бути здійснене без зазначення авторства (анонімно).</p>
+          </div>
+        </div>
+
+        <div class="fade-up">
+          <div class="section-label">Запитання і відповіді</div>
+          <h2 class="section-title" style="font-size:22px">Що потрібно знати</h2>
+          <div class="accordion" style="margin-top:24px">
+            <div class="acc-item">
+              <button class="acc-trigger" onclick="toggleAcc(this)">
+                Хто такий викривач?
+                <i class="fas fa-chevron-down acc-icon"></i>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  Викривач — фізична особа, яка за наявності переконання, що інформація є достовірною, повідомила про можливі факти корупційних або пов'язаних з корупцією правопорушень, інших порушень Закону України «Про запобігання корупції» вчинених іншою особою, якщо така інформація стала їй відома у зв'язку з її трудовою, професійною або іншою діяльністю.
+                </div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-trigger" onclick="toggleAcc(this)">
+                Які права має викривач?
+                <i class="fas fa-chevron-down acc-icon"></i>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <ul>
+                    <li>Бути повідомленим про свої права та обов'язки</li>
+                    <li>Отримувати підтвердження прийняття та реєстрації повідомлення</li>
+                    <li>На безоплатну правову допомогу</li>
+                    <li>На конфіденційність та анонімність</li>
+                    <li>На відшкодування витрат на адвоката</li>
+                    <li>На отримання психологічної допомоги</li>
+                    <li>На звільнення від юридичної відповідальності у визначених законом випадках</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-trigger" onclick="toggleAcc(this)">
+                Гарантії захисту трудових прав
+                <i class="fas fa-chevron-down acc-icon"></i>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  Викривачу та його близьким особам не може бути: відмовлено у прийнятті на роботу; звільнено чи примушено до звільнення; притягнуто до дисциплінарної відповідальності; піддано іншим негативним заходам впливу з боку керівника або роботодавця.
+                </div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-trigger" onclick="toggleAcc(this)">
+                Умови отримання винагороди
+                <i class="fas fa-chevron-down acc-icon"></i>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  Право на винагороду має викривач, який повідомив про корупційний злочин, грошовий розмір предмета якого у 5000 і більше разів перевищує прожитковий мінімум. Розмір винагороди — 10% від суми злочину, але не більше 3000 мінімальних заробітних плат.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── МЕТОДИКА ВАРТОСТІ ── -->
+<div class="page" id="page-metodyka">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Замовнику</div>
+      <h1>Визначення очікуваної вартості</h1>
+      <div class="hero-divider"></div>
+      <p>Методика визначення очікуваної вартості предмету закупівлі для товарів широкого вжитку.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="prose fade-up" style="max-width:800px">
+        <p>Методика розроблена з метою встановлення єдиних вимог щодо порядку визначення очікуваної вартості при здійсненні публічних закупівель товарів Централізованою закупівельною організацією, а також підвищення ефективності закупівельного процесу.</p>
+        <p>Методика описує порядок збору інформації, методи розрахунку очікуваної ціни закупівлі, застосування індексів корегування цін та інфляції, вплив зміни курсу валют при закупівлі товарів.</p>
+
+        <h3>Основні терміни та поняття</h3>
+
+        <h4>Аналогічні (однорідні) товари</h4>
+        <p>Товари, які, не будучи ідентичними, мають подібні характеристики і складаються зі схожих компонентів, що дозволяє їм виконувати одні і ті ж функції та бути технічно взаємозамінними.</p>
+
+        <h4>Аномально низька ціна</h4>
+        <p>Ціна найбільш економічно вигідної тендерної пропозиції, яка є меншою на 40% або більше від середньоарифметичного значення ціни інших учасників, та/або менша на 30% від наступної ціни за результатами аукціону.</p>
+
+        <h4>Очікувана вартість</h4>
+        <p>Розрахункова вартість предмета закупівлі на конкретних умовах поставки із зазначенням інформації про включення ПДВ та інших податків і зборів.</p>
+
+        <h4>Моніторинг цін</h4>
+        <p>Дослідження динаміки цін, аналіз і визначення тенденцій інфляційних (дефляційних) процесів ринку відповідного товару.</p>
+
+        <h4>Ринкова ціна</h4>
+        <p>Ціна, яка встановлюється безпосередньо на реальному ринку під впливом співвідношення попиту і пропозиції, або ціна конкретних угод, які відбулись на вільному ринку.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── ПЕРЕДАТИ ЗАКУПІВЛІ ── -->
+<div class="page" id="page-transfer">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Замовнику</div>
+      <h1>Передати закупівлі ЦЗО</h1>
+      <div class="hero-divider"></div>
+      <p>Покроковий порядок передачі закупівель до Централізованої закупівельної організації.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="two-col-wide">
+        <div>
+          <div class="section-head fade-up">
+            <div class="section-label">Покроково</div>
+            <h2 class="section-title">Що необхідно зробити</h2>
+          </div>
+          <div class="steps">
+            <div class="step fade-up">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>Погодження очікуваної вартості</h4>
+                <p>Надішліть запит про погодження очікуваної вартості та технічних характеристик до Департаменту економічної політики та стратегічного планування Одеської ОДА та отримайте відповідне Погодження.</p>
+              </div>
+            </div>
+            <div class="step fade-up">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>Надсилання заявки</h4>
+                <p>Надішліть заповнену, підписану (з печаткою) та відскановану Заявку разом із Погодженням у PDF-форматі на email КП «ЦЗО»: <a href="mailto:czo.odessa@gmail.com" style="color:var(--navy);font-weight:600">czo.odessa@gmail.com</a></p>
+              </div>
+            </div>
+            <div class="step fade-up">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>Узгодження умов</h4>
+                <p>Замовником та ЦЗО можуть проводитись листування, узгоджувальні наради, зустрічі, обмін інформацією через електронну систему закупівель для визначення умов тендеру.</p>
+              </div>
+            </div>
+            <div class="step fade-up">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <h4>Передача рядка річного плану</h4>
+                <p>Передайте рядок річного плану ЦЗО шляхом розміщення його на електронному майданчику із зазначенням інформації про передачу закупівлі Замовнику-ЦЗО.</p>
+              </div>
+            </div>
+            <div class="step fade-up">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <h4>Укладення договору</h4>
+                <p>За результатами закупівлі та після закінчення періоду оскарження укладіть Договір про закупівлю з Переможцем відповідно до вимог Закону України «Про публічні закупівлі».</p>
+              </div>
+            </div>
+            <div class="step fade-up">
+              <div class="step-num">6</div>
+              <div class="step-body">
+                <h4>Отримання товару/послуги</h4>
+                <p>Отримайте від Переможця товар або послугу відповідно до результатів закупівлі та підписаного Договору.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up">
+          <div class="info-box">
+            <strong>Процедури, що передаються ЦЗО</strong>
+            <p>Ви можете передати ЦЗО закупівлі для проведення за процедурами відкритих торгів, конкурентного діалогу та закупівлі за рамковими угодами.</p>
+          </div>
+          <div class="info-box">
+            <strong>Внесення змін до договору</strong>
+            <p>У разі потреби внесення змін — надішліть заповнений, підписаний та відсканований Додаток 2 до Регламенту взаємодії замовників із ЦЗО.</p>
+          </div>
+          <div class="info-box">
+            <strong>Після завершення договору</strong>
+            <p>Протягом 20 календарних днів після закінчення строку дії або виконання договору — надішліть заповнений Додаток 3 до Регламенту на email ЦЗО.</p>
+          </div>
+          <div style="margin-top:24px">
+            <a href="#" onclick="showPage('documents')" class="btn btn-primary">Шаблони документів <i class="fas fa-download"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── ДОКУМЕНТИ ── -->
+<div class="page" id="page-documents">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Документи</div>
+      <h1>Документи та звіти</h1>
+      <div class="hero-divider"></div>
+      <p>Офіційні документи, статут, регламент та шаблони для замовників.</p>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="section-head fade-up">
+        <div class="section-label">Офіційні документи</div>
+        <h2 class="section-title">Документи КП «ЦЗО»</h2>
+      </div>
+      <ul class="doc-list">
+        <li class="doc-item fade-up">
+          <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div class="doc-name">Рішення Одеської обласної ради від 18 червня 2021 року № 230-VIII</div><div class="doc-sub">Про створення КП «ЦЗО» · PDF</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-view" href="Рішення-про-створення-КП-ЦЗО.pdf" target="_blank"><i class="fas fa-eye"></i> Переглянути</a>
+            <a class="doc-btn doc-btn-dl" href="Рішення-про-створення-КП-ЦЗО.pdf" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div class="doc-name">Рішення Одеської обласної ради від 12 вересня 2025 № 803-VIII</div><div class="doc-sub">Зміни до Рішення № 230-VIII · PDF</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-view" href="Рішення-803-VIII-2025.pdf" target="_blank"><i class="fas fa-eye"></i> Переглянути</a>
+            <a class="doc-btn doc-btn-dl" href="Рішення-803-VIII-2025.pdf" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div class="doc-name">Статут КП «ЦЗО»</div><div class="doc-sub">Установчий документ підприємства · PDF</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-view" href="Статут-КП-ЦЗО.pdf" target="_blank"><i class="fas fa-eye"></i> Переглянути</a>
+            <a class="doc-btn doc-btn-dl" href="Статут-КП-ЦЗО.pdf" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+          <div style="flex:1"><div class="doc-name">Регламент КП «ЦЗО» від 14.02.2024 (нова редакція)</div><div class="doc-sub">Порядок взаємодії з замовниками · PDF</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-view" href="Регламент-КП-ЦЗО-2024.pdf" target="_blank"><i class="fas fa-eye"></i> Переглянути</a>
+            <a class="doc-btn doc-btn-dl" href="Регламент-КП-ЦЗО-2024.pdf" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon" style="background:linear-gradient(135deg,#1a6fa8,#0d4a73)"><i class="fas fa-file-word"></i></div>
+          <div style="flex:1"><div class="doc-name">Шаблон Додатку № 1 до Регламенту</div><div class="doc-sub">Заявка Замовника на проведення закупівлі · DOCX</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-dl" href="Заявка-Замовника.docx" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon" style="background:linear-gradient(135deg,#1a6fa8,#0d4a73)"><i class="fas fa-file-word"></i></div>
+          <div style="flex:1"><div class="doc-name">Шаблон Додатку № 2 до Регламенту</div><div class="doc-sub">Форма внесення змін до договору про закупівлю · DOCX</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-dl" href="Додаток-2-Регламент.docx" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+        <li class="doc-item fade-up">
+          <div class="doc-icon" style="background:linear-gradient(135deg,#1a6fa8,#0d4a73)"><i class="fas fa-file-word"></i></div>
+          <div style="flex:1"><div class="doc-name">Шаблон Додатку № 3 до Регламенту</div><div class="doc-sub">Форма звіту про виконання договору про закупівлю · DOCX</div></div>
+          <div class="doc-btns">
+            <a class="doc-btn doc-btn-dl" href="Додаток-3-Регламент.docx" download><i class="fas fa-download"></i> Завантажити</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+
+<!-- ── КОНТАКТИ ── -->
+<div class="page" id="page-contacts">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="badge">Контакти</div>
+      <h1>Зв'яжіться з нами</h1>
+      <div class="hero-divider"></div>
+    </div>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <div class="two-col">
+        <div class="fade-up">
+          <div class="section-label">Контактна інформація</div>
+          <h2 class="section-title" style="font-size:22px;margin-bottom:28px">Реквізити</h2>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-detail">
+              <strong>Адреса</strong>
+              <span>65012, Україна, Одеська область,<br>місто Одеса, Приморський район,<br>вулиця Канатна, буд. 83</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-detail">
+              <strong>Телефон</strong>
+              <a href="tel:+380965447392">+380 96 544 73 92</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-detail">
+              <strong>Електронна пошта</strong>
+              <span>czo.odessa@gmail.com</span>
+            </div>
+          </div>
+
+          <div style="margin-top:32px">
+            <div class="map-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2748.3!2d30.7326!3d46.4825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDI4JzU3LjAiTiAzMMKwNDMnNTcuNCJF!5e0!3m2!1suk!2sua!4v1"
+                allowfullscreen="" loading="lazy">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up">
+          <div class="section-label">Написати нам</div>
+          <h2 class="section-title" style="font-size:22px;margin-bottom:24px">Зворотній зв'язок</h2>
+          <form onsubmit="return false">
+            <div class="form-grid">
+              <div class="form-group"><label>Ваше ім'я</label><input type="text" placeholder="Іваненко Іван"></div>
+              <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+              <div class="form-group full"><label>Тема</label><input type="text" placeholder="Тема повідомлення"></div>
+              <div class="form-group full"><label>Повідомлення (необов'язково)</label><textarea placeholder="Ваше повідомлення..."></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:14px;width:100%;justify-content:center">Відправити <i class="fas fa-paper-plane"></i></button>
+            <p class="form-note">* Форма не є запитом на інформацію відповідно до Закону України «Про доступ до публічної інформації».</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     FOOTER
+═══════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Контакти</h4>
+        <div class="footer-contact">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>65012, Одеська область, м. Одеса,<br>Приморський р-н, вул. Канатна, 83</span>
+        </div>
+        <div class="footer-contact">
+          <i class="fas fa-phone"></i>
+          <a href="tel:+380965447392">+380 96 544 73 92</a>
+        </div>
+        <div class="footer-contact">
+          <i class="fas fa-envelope"></i>
+          <span>czo.odessa@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Навігація</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('home')">Головна</a></li>
+          <li><a href="#" onclick="showPage('structure')">Структура та керівництво</a></li>
+          <li><a href="#" onclick="showPage('services')">Послуги</a></li>
+          <li><a href="#" onclick="showPage('documents')">Документи</a></li>
+          <li><a href="#" onclick="showPage('contacts')">Контакти</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Замовнику</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('metodyka')">Визначення очікуваної вартості</a></li>
+          <li><a href="#" onclick="showPage('transfer')">Передати закупівлі ЦЗО</a></li>
+          <li><a href="#" onclick="showPage('vacancy')">Вакансії</a></li>
+          <li><a href="#" onclick="showPage('corruption')">Повідом про корупцію</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 КП «Централізована закупівельна організація Одеської обласної ради»</p>
+      <p>
+        <a href="https://oblrada.odessa.gov.ua/" target="_blank"
+           style="color:rgba(255,255,255,.35);transition:color .2s"
+           onmouseover="this.style.color='#E2C97E'"
+           onmouseout="this.style.color='rgba(255,255,255,.35)'">
+          Одеська обласна рада
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ── PAGE NAVIGATION ──
+  function showPage(id, linkEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) {
+      page.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // re-trigger fade-up for newly shown page
+      page.querySelectorAll('.fade-up').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => observer.observe(el), 50);
+      });
+    }
+    // update active nav
+    document.querySelectorAll('.nav-menu > li').forEach(li => li.classList.remove('active'));
+    if (linkEl) {
+      const li = linkEl.closest('li');
+      if (li) li.classList.add('active');
+    }
+  }
+
+  // ── MOBILE NAV ──
+  function toggleMobile() {
+    const nav = document.getElementById('mobileNav');
+    const icon = document.getElementById('burgerIcon');
+    nav.classList.toggle('open');
+    icon.className = nav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+  }
+
+  // ── ACCORDION ──
+  function toggleAcc(btn) {
+    const item = btn.closest('.acc-item');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── PREVENT # in URL ──
+  document.querySelectorAll('a[href="#"]').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+</script>
+
+</body>
+</html>
